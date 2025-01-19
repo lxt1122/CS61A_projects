@@ -13,14 +13,13 @@ GOAL = 100  # The goal of Hog is to score 100 points.
 def roll_dice(num_rolls, dice=six_sided):
     """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return 1.
-    num_rolls:  The number of dice rolls that will be made.111
+    num_rolls:  The number of dice rolls that will be made.
     dice:       A function that simulates a single dice roll outcome. Defaults to the six sided dice.
     """
     # These assert statements ensure that num_rolls is a positive integer.
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
     i, total_rolls = 0, 0
     pig_out = bool(None)
     for i in range(num_rolls):
@@ -41,9 +40,12 @@ def boar_brawl(player_score, opponent_score):
 
     """
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
-
-
+    oppo_tens = opponent_score // 10 % 10
+    player_ones = player_score % 10
+    if abs (oppo_tens - player_ones) == 0:
+        return 1
+    else:
+        return 3 * abs(oppo_tens - player_ones)
     # END PROBLEM 2
 
 
@@ -61,9 +63,13 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
     assert num_rolls >= 0, 'Cannot roll a negative number of dice in take_turn.'
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return boar_brawl(player_score, opponent_score)
+    else:
+        return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
+take_turn(2, 7, 27, make_test_dice(4, 5, 1))
 
 def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
