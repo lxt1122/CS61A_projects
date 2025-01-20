@@ -69,7 +69,6 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided):
         return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
-take_turn(2, 7, 27, make_test_dice(4, 5, 1))
 
 def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
@@ -92,23 +91,34 @@ def is_prime(n):
 def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    num_f = 0
+    for f in range(1, n+1):
+        if n % f == 0:
+            num_f += 1
+    return num_f
     # END PROBLEM 4
 
 def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    if num_factors(score) in {3, 4}:
+        while num_factors(score) != 2:
+            score += 1
+    return score
     # END PROBLEM 4
+
+# print(sus_points(25))
 
 def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
     PLAYER_SCORE and then rolls NUM_ROLLS DICE, *including* Sus Fuss.
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    score = take_turn(num_rolls, player_score, opponent_score, dice)
+    return sus_points(score + player_score)
     # END PROBLEM 4
 
+sus_update(2, 5, 7, make_test_dice(2, 4))
 
 def always_roll_5(score, opponent_score):
     """A strategy of always rolling 5 dice, regardless of the player's score or
