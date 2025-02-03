@@ -77,6 +77,7 @@ def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
     score = player_score + take_turn(num_rolls, player_score, opponent_score, dice)
     return score
 
+
 def is_prime(n):
     """Return whether N is prime."""
     if n == 1:
@@ -88,6 +89,7 @@ def is_prime(n):
         k += 1
     return True
 
+
 def num_factors(n):
     """Return the number of factors of N, including 1 and N itself."""
     # BEGIN PROBLEM 4
@@ -98,6 +100,7 @@ def num_factors(n):
     return num_f
     # END PROBLEM 4
 
+
 def sus_points(score):
     """Return the new score of a player taking into account the Sus Fuss rule."""
     # BEGIN PROBLEM 4
@@ -107,18 +110,16 @@ def sus_points(score):
     return score
     # END PROBLEM 4
 
-# print(sus_points(25))
 
 def sus_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
     PLAYER_SCORE and then rolls NUM_ROLLS DICE, *including* Sus Fuss.
     """
-    # BEGIN PROBLEM 4
-    score = take_turn(num_rolls, player_score, opponent_score, dice)
-    return sus_points(score + player_score)
+    # BEGIN PROBLEM 4 
+    return sus_points(take_turn(num_rolls, player_score, opponent_score, dice) 
+                      + player_score)
     # END PROBLEM 4
 
-sus_update(2, 5, 7, make_test_dice(2, 4))
 
 def always_roll_5(score, opponent_score):
     """A strategy of always rolling 5 dice, regardless of the player's score or
@@ -155,7 +156,12 @@ def play(strategy0, strategy1, update,
     """
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    while max(score0, score1) < goal:
+        if who == 0:
+            score0 = update(strategy0(score0, score1), score0, score1, dice)
+        else:
+            score1 = update(strategy1(score1, score0), score1, score0, dice)
+        who = 1 - who
     # END PROBLEM 5
     return score0, score1
 
