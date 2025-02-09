@@ -219,8 +219,18 @@ def is_always_roll(strategy, goal=GOAL):
     False
     """
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    refer_dice_num = strategy(0,0)
+    for i in range(0, goal):
+        for j in range(0,goal):
+            if refer_dice_num != strategy(i, j):
+                return False
+    return True
     # END PROBLEM 7
+    # refer_dice_num = strategy(0, 0)
+    # return all(strategy(i,j) == refer_dice_num
+    #     for i in range(0, goal)
+    #     for j in range(0, goal)
+    # )
 
 
 def make_averaged(original_function, times_called=1000):
@@ -235,7 +245,14 @@ def make_averaged(original_function, times_called=1000):
     3.0
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    def new_func(*args):
+        # run the original function some number of times
+        total = 0
+        for i in range(times_called):
+            total += original_function(*args)
+        return total/ times_called
+        #return average of funtion calls
+    return new_func
     # END PROBLEM 8
 
 
