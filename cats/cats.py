@@ -37,7 +37,13 @@ def pick(paragraphs, select, k):
     ''
     """
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    valid_p = []
+    for paragraph in paragraphs:
+        if select(paragraph):
+            valid_p.append(paragraph)
+    if len(valid_p) > k:
+        return valid_p[k]
+    return ''
     # END PROBLEM 1
 
 
