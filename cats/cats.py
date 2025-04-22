@@ -41,9 +41,7 @@ def pick(paragraphs, select, k):
     for paragraph in paragraphs:
         if select(paragraph):
             valid_p.append(paragraph)
-    if len(valid_p) > k:
-        return valid_p[k]
-    return ''
+    return valid_p[k] if k < len(valid_p) else ''
     # END PROBLEM 1
 
 
@@ -63,7 +61,14 @@ def about(keywords):
     assert all([lower(x) == x for x in keywords]), "keywords should be lowercase."
 
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def select(paragraph):
+        paragraph = remove_punctuation(paragraph)
+        paragraph = paragraph.lower().split()
+        for word in paragraph:
+            if word in keywords:
+                return True
+        return False
+    return select
     # END PROBLEM 2
 
 
