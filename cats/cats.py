@@ -166,7 +166,7 @@ def memo_diff(diff_function):
 ###########
 
 
-def autocorrect(typed_word, word_list, diff_function, limit):
+def autocorrect(typed_word: str, word_list, diff_function, limit):
     """Returns the element of WORD_LIST that has the smallest difference
     from TYPED_WORD based on DIFF_FUNCTION. If multiple words are tied for the smallest difference,
     return the one that appears closest to the front of WORD_LIST. If the
@@ -183,10 +183,20 @@ def autocorrect(typed_word, word_list, diff_function, limit):
     'butter'
     >>> first_diff = lambda w1, w2, limit: (1 if w1[0] != w2[0] else 0) # Checks for matching first char
     >>> autocorrect("tosting", ["testing", "asking", "fasting"], first_diff, 10)
-    'testing'
+    'testing'""
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    if typed_word not in word_list:
+        best_word = min(
+            word_list,
+            key=lambda word: diff_function(typed_word, word, limit)
+        )
+
+        best_diff = diff_function(typed_word, best_word, limit)
+        if best_diff <= limit:
+            return best_word
+    return typed_word
+
     # END PROBLEM 5
 
 
