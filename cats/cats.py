@@ -108,7 +108,6 @@ def accuracy(typed, source):
         if source_words[i] == typed_words[i]:
             correct += 1
     result = correct / len(typed_words)
-    return round(result * 100, 2)
     # END PROBLEM 3
 
 
@@ -126,7 +125,7 @@ def wpm(typed, elapsed):
     """
     assert elapsed > 0, "Elapsed time must be positive"
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    return len(typed) * 12 / elapsed
     # END PROBLEM 4
 
 
