@@ -191,12 +191,10 @@ def autocorrect(typed_word: str, word_list, diff_function, limit):
             word_list,
             key=lambda word: diff_function(typed_word, word, limit)
         )
-
         best_diff = diff_function(typed_word, best_word, limit)
         if best_diff <= limit:
             return best_word
     return typed_word
-
     # END PROBLEM 5
 
 
@@ -223,7 +221,25 @@ def furry_fixes(typed, source, limit):
     5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
+    # 'range', "rungs", 2
+    # 'ange', 'ungs', 2
+    # 'nge', 'ngs', 1
+    # 'ge', 'gs', 1
+    # 'e', 's', 1
+    # '', '', 0
+    if limit < 0:
+        return float('inf')
+    
+    if not typed:
+        return len(source)
+    if not source:
+        return len(typed)
+
+    if typed[0] == source[0]:
+        return furry_fixes(typed[1:], source[1:], limit)
+    else:
+        return 1 + furry_fixes(typed[1:], source[1:], limit-1)
+    
     # END PROBLEM 6
 
 
