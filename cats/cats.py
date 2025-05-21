@@ -332,7 +332,6 @@ def report_progress(typed, source, user_id, upload):
     progress = correct/ len(source)
     upload({'id': user_id, 'progress': progress})
     return progress
-        
     # END PROBLEM 8
 
 
@@ -356,7 +355,14 @@ def time_per_word(words, timestamps_per_player):
     """
     tpp = timestamps_per_player  # A shorter name (for convenience)
     # BEGIN PROBLEM 9
-    times = []  # You may remove this line
+    times = []
+    for player_times in tpp:
+        diff_lst = []
+        for i in range(len(player_times) - 1):
+            time_diff = player_times[i+1] - player_times[i]
+            diff_lst.append(time_diff)
+        times.append(diff_lst)
+
     # END PROBLEM 9
     return {'words': words, 'times': times}
 
