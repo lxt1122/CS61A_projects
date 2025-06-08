@@ -107,7 +107,8 @@ def accuracy(typed, source):
     for i in range(min(len(typed_words), len(source_words))):
         if source_words[i] == typed_words[i]:
             correct += 1
-    result = correct / len(typed_words)
+    result = correct / len(typed_words) *100
+    return result
     # END PROBLEM 3
 
 
@@ -390,7 +391,22 @@ def fastest_words(words_and_times):
     player_indices = range(len(times))  # contains an *index* for each player
     word_indices = range(len(words))    # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
+    lst = []
+    for i in player_indices:
+        lst.append([])
+    for j in word_indices:
+        word_times = []
+        for i in player_indices:
+            word_times.append(times[i][j])
+        fastest_time = min(word_times)
+
+        for i in player_indices:
+            if times[i][j] == fastest_time:
+                lst[i].append(words[j])
+                break
+    return lst
+            
+
     # END PROBLEM 10
 
 
