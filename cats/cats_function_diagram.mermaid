@@ -1,0 +1,114 @@
+flowchart TD
+    %% Main sections
+    subgraph UTILS["🔧 Utility Functions"]
+        U1[lines_from_file<br/>filename]
+        U2[lower<br/>text]
+        U3[remove_punctuation<br/>text]
+        U4[split<br/>text]
+        U5[count<br/>function]
+    end
+
+    subgraph CATS["📝 Core Typing Logic (cats.py)"]
+        subgraph P1["Phase 1: Basic Functions"]
+            C1[pick<br/>paragraphs, select, k]
+            C2[about<br/>keywords]
+            C3[accuracy<br/>typed, source]
+            C4[wpm<br/>typed, elapsed]
+        end
+        
+        subgraph P2["Phase 2: Autocorrect System"]
+            C5[autocorrect<br/>typed_word, word_list, diff_function, limit]
+            C6[furry_fixes<br/>typed, source, limit]
+            C7[minimum_mewtations<br/>typed, source, limit]
+            C8[final_diff<br/>typed, source, limit]
+        end
+        
+        subgraph P3["Phase 3: Multiplayer Functions"]
+            C9[report_progress<br/>typed, source, user_id, upload]
+            C10[time_per_word<br/>words, timestamps_per_player]
+            C11[fastest_words<br/>words_and_times]
+            C12[check_words_and_times<br/>words_and_times]
+        end
+        
+        subgraph P4["Phase 4: Optimization"]
+            C13[memo<br/>f]
+            C14[memo_diff<br/>diff_function]
+        end
+        
+        subgraph CLI["Command Line Interface"]
+            C15[run_typing_test<br/>topics]
+            C16[run<br/>*args]
+        end
+    end
+
+    subgraph GUI["🌐 Web Interface (cats_gui.py)"]
+        subgraph ROUTES["Web Routes"]
+            G1[request_paragraph<br/>topics=None]
+            G2[analyze<br/>prompted_text, typed_text, start_time, end_time]
+            G3[autocorrect<br/>word='']
+            G4[report_progress<br/>id, typed, prompt]
+            G5[fastest_words<br/>prompt, targets]
+            G6[request_id<br/>no params]
+            G7[favicon<br/>no params]
+        end
+        
+        subgraph HELPERS["Helper Functions"]
+            G8[similar<br/>w, v, n]
+            G9[reformat<br/>word, raw_word]
+        end
+    end
+
+    %% Key relationships
+    %% Utility usage
+    U1 --> C15
+    U1 --> G1
+    U2 --> C2
+    U2 --> G3
+    U3 --> C2
+    U3 --> G3
+    U4 --> C3
+
+    %% Internal cats.py relationships
+    C2 --> C1
+    C6 --> C5
+    C7 --> C5
+    C8 --> C5
+    C12 --> C11
+    C1 --> C15
+    C2 --> C15
+    C3 --> C15
+    C4 --> C15
+
+    %% GUI to Core relationships
+    C1 --> G1
+    C2 --> G1
+    C3 --> G2
+    C4 --> G2
+    C5 --> G3
+    C6 --> G3
+    C7 --> G3
+    C8 --> G3
+    C9 --> G4
+    C10 --> G5
+    C11 --> G5
+
+    %% GUI internal relationships
+    G8 --> G3
+    G9 --> G3
+
+    %% Styling
+    classDef phase1 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef phase2 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef phase3 fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef phase4 fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef gui fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef utils fill:#fff8e1,stroke:#fbc02d,stroke-width:2px
+    classDef cli fill:#efebe9,stroke:#5d4037,stroke-width:2px
+
+    class C1,C2,C3,C4 phase1
+    class C5,C6,C7,C8 phase2
+    class C9,C10,C11,C12 phase3
+    class C13,C14 phase4
+    class G1,G2,G3,G4,G5,G6,G7,G8,G9 gui
+    class U1,U2,U3,U4,U5 utils
+    class C15,C16 cli
